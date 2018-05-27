@@ -1,0 +1,47 @@
+
+<div [formGroup]="group" [class.input-group]="model.prefix || model.suffix">
+  <nz-form-item>
+    <nz-form-label [nzSpan]="7" nzRequired>{{ model.label }}</nz-form-label>
+    <nz-form-control [nzSpan]="12" nzHasFeedback>
+      <input nz-input 
+       class="form-control"
+       [attr.accept]="model.accept"
+       [attr.list]="model.listId"
+       [attr.max]="model.max"
+       [attr.min]="model.min"
+       [attr.multiple]="model.multiple"
+       [attr.step]="model.step"
+       [autocomplete]="model.autoComplete"
+       [autofocus]="model.autoFocus"
+       [dynamicId]="bindId && model.id"
+       [formControlName]="model.id"
+       [maxlength]="model.maxLength"
+       [minlength]="model.minLength"
+       [name]="model.name"
+       [ngClass]="getClass('element', 'control')"
+       [pattern]="model.pattern"
+       [placeholder]="model.placeholder"
+       [readonly]="model.readOnly"
+       [required]="model.required"
+       [spellcheck]="model.spellCheck"
+       [tabindex]="model.tabIndex"
+       [textMask]="{mask: (model.mask || false), showMask: model.mask && !(model.placeholder)}"
+       [type]="model.inputType"
+       (blur)="onBlur($event)"
+       (change)="onChange($event)"
+       (focus)="onFocus($event)"
+       >
+      <nz-form-explain *ngIf="group.get(model.id).dirty && group.get(model.id).errors || group.get(model.id).pending ">
+        <ng-container *ngIf="group.get(model.id).hasError('required')">
+          Please input your {{ model.label }}
+        </ng-container>
+        <ng-container *ngIf="group.get(model.id).hasError('duplicated')">
+          The {{ model.label }} is redundant!
+        </ng-container>
+        <ng-container *ngIf="group.get(model.id).pending">
+          Validating...
+        </ng-container>
+      </nz-form-explain>
+    </nz-form-control>
+  </nz-form-item>
+</div>
